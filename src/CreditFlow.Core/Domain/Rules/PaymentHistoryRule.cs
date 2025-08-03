@@ -1,6 +1,8 @@
+using CreditFlow.Core.Domain.Interfaces;
+
 namespace CreditFlow.Core.Domain.Rules;
 
-public class PaymentHistoryRule
+public class PaymentHistoryRule : ICreditRule
 {
     
 }

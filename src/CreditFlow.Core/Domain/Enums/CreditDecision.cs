@@ -1,6 +1,7 @@
 namespace CreditFlow.Core.Domain.Enums;
 
-public class CreditDecision
+enum CreditDecision
 {
-    
+    Approved,
+    Rejected
 }

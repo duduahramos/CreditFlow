@@ -1,6 +1,6 @@
 namespace CreditFlow.Core.Domain.Interfaces;
 
-public class ICreditRule
+public interface ICreditRule
 {
-    
+    string Name { get; }
 }
