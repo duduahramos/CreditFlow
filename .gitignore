@@ -1,0 +1,89 @@
+## Build results
+bin/
+obj/
+out/
+
+## User-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+## Visual Studio Code
+.vscode/
+
+## Rider
+.idea/
+*.sln.iml
+
+## Dotnet CLI
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## ASP.NET
+wwwroot/lib/
+node_modules/
+dist/
+bower_components/
+jspm_packages/
+
+## Logs
+*.log
+
+## OS generated files
+.DS_Store
+Thumbs.db
+
+## Paket
+.paket/
+paket-files/
+
+## Azure Pipelines
+.vs/
+
+## Test Results
+TestResults/
+*.coverage
+*.coveragexml
+*.testlog
+
+## NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+# Uncomment if using NuGet restore instead of package references
+#packages/*/
+#!.gitkeep
+
+## Entity Framework
+Migrations/
+
+## Local db
+*.mdf
+*.ldf
+
+## dotCover
+.idea/.dotCover
+
+## Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+## StyleCop
+StyleCopReport.xml
+
+## Global JetBrains Rider settings
+.idea/
+
+## Tye
+.tye/
+
+## Temporary files
+*.tmp
+*.temp
+
+## Coverage reports
+coverage/
+coverage-report/
