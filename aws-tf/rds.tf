@@ -1,0 +1,17 @@
+resource "aws_db_instance" "postgresql" {
+  allocated_storage       = 5
+  db_name                 = "CreditRequests"
+  engine                  = "postgres"
+  engine_version          = "15"
+  instance_class          = "db.t3.micro"
+  username                = "admin_user"
+  password                = var.db_password
+  skip_final_snapshot     = true
+  backup_retention_period = 0
+  publicly_accessible     = true
+
+  vpc_security_group_ids = [aws_security_group.dev_rds_sg.id]
+  db_subnet_group_name = aws_db_subnet_group.main.name
+
+  deletion_protection = false
+}

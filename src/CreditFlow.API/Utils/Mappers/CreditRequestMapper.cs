@@ -17,7 +17,11 @@ public static class CreditRequestMapper
             MonthlyIncome = request.MonthlyIncome,
             RequestAmount = request.RequestAmount,
             CreditScore = request.CreditScore,
-            HasDebtHistory = request.HasDebtHistory
+            HasDebtHistory = request.HasDebtHistory,
+            CreatedAt = request.CreatedAt,
+            UpdatedAt = request.UpdatedAt,
+            EndedAt = request.EndedAt,
+            RequestStatus = request.RequestStatus
         };
     }
 
@@ -25,7 +29,6 @@ public static class CreditRequestMapper
     {
         return new CreditRequest()
         {
-            Id = request.Id,
             FirstName = request.FirstName,
             LastName = request.LastName,
             Cpf = request.Cpf,
@@ -33,7 +36,11 @@ public static class CreditRequestMapper
             MonthlyIncome = request.MonthlyIncome,
             RequestAmount = request.RequestAmount,
             CreditScore = request.CreditScore,
-            HasDebtHistory = request.HasDebtHistory
+            HasDebtHistory = request.HasDebtHistory,
+            CreatedAt = request.CreatedAt,
+            UpdatedAt = request.UpdatedAt,
+            EndedAt = request.EndedAt,
+            RequestStatus = request.RequestStatus
         };
     }
 }

@@ -87,3 +87,16 @@ StyleCopReport.xml
 ## Coverage reports
 coverage/
 coverage-report/
+
+## Terraform
+*.tfstate
+*.tfstate.*
+.crash
+.terraform/
+.terraform.lock.hcl
+terraform.tfvars
+terraform.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json

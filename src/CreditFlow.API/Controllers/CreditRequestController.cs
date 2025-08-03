@@ -4,6 +4,8 @@ using CreditFlow.API.Models;
 using CreditFlow.API.Utils.Mappers;
 using CreditFlow.Core.Application;
 using CreditFlow.Core.Domain.Results;
+using CreditFlow.Infrastructure.Data;
+using CreditFlow.Infrastructure.Respositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CreditFlow.API.Controllers;
@@ -13,10 +15,12 @@ namespace CreditFlow.API.Controllers;
 public class CreditRequestController : ControllerBase
 {
     private readonly CreditRequestValidator _validator;
+    private readonly ICreditRequestRepository _creditRequestRepository;
 
-    public CreditRequestController(CreditRequestValidator validator)
+    public CreditRequestController(CreditRequestValidator validator, ICreditRequestRepository creditRequestRepository)
     {
         _validator = validator;
+        _creditRequestRepository = creditRequestRepository;
     }
     
     [HttpPost]
@@ -25,9 +29,9 @@ public class CreditRequestController : ControllerBase
         if (requestDto == null) return BadRequest("Request body is required.");
 
         var request = requestDto.ToEntity();
+        
+        await _creditRequestRepository.SaveAsync(request, cancellationToken);
 
-        var result = await _validator.ValidateAsync(request, cancellationToken);
-
-        return Ok(result);
+        return Ok(request.Id);
     }
 }

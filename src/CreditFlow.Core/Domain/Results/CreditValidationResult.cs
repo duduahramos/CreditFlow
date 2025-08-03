@@ -5,12 +5,12 @@ namespace CreditFlow.Core.Domain.Results;
 public class CreditValidationResult
 {
     public Guid RequestId { get; set; }
-    public CreditDecision Decision { get; set; }
+    public CreditRequestStatus RequestStatus { get; set; }
     public List<RuleValidationResult> RuleResults { get; set; } = new();
     
     public bool IsApproved()
     {
-        return Decision == CreditDecision.Approved;
+        return RequestStatus == CreditRequestStatus.Approved;
     }
 
     public static CreditValidationResult FromRules(Guid requestId, IEnumerable<RuleValidationResult> results)
@@ -21,7 +21,7 @@ public class CreditValidationResult
         {
             RequestId = requestId,
             RuleResults = results.ToList(),
-            Decision = allRulesPassed ? CreditDecision.Approved : CreditDecision.Rejected
+            RequestStatus = allRulesPassed ? CreditRequestStatus.Approved : CreditRequestStatus.Rejected
         };
     }
 }
