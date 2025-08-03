@@ -21,7 +21,7 @@ public static class CreditRequestMapper
         };
     }
 
-    public static CreditRequest ToEntity(this CreditRequestDTO request)
+    public static CreditRequest ToEntity(this CreditRequestDTO? request)
     {
         return new CreditRequest()
         {

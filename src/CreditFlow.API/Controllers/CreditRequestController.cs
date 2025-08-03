@@ -1,23 +1,33 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using CreditFlow.API.Models;
 using CreditFlow.API.Utils.Mappers;
+using CreditFlow.Core.Application;
 using CreditFlow.Core.Domain.Results;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CreditFlow.API.Controllers;
 
-public class CreditRequestController : Controller
+[ApiController]
+[Route("api/v1/[controller]")]
+public class CreditRequestController : ControllerBase
 {
-    // GET
-    public IActionResult Index()
-    {
-        return View();
-    }
+    private readonly CreditRequestValidator _validator;
 
-    [HttpPost]
-    public async Task<ActionResult<CreditValidationResult> Post([FromBody] CreditRequestDTO requestDto)
+    public CreditRequestController(CreditRequestValidator validator)
     {
+        _validator = validator;
+    }
+    
+    [HttpPost]
+    public async Task<ActionResult> Post([FromBody] CreditRequestDTO? requestDto, CancellationToken cancellationToken)
+    {
+        if (requestDto == null) return BadRequest("Request body is required.");
+
         var request = requestDto.ToEntity();
-        
-        var result = await 
+
+        var result = await _validator.ValidateAsync(request, cancellationToken);
+
+        return Ok(result);
     }
 }
