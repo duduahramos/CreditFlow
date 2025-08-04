@@ -1,7 +1,9 @@
 using System.Text.Json;
 using CreditFlow.Core.Application;
 using CreditFlow.Core.Domain.Entities;
+using CreditFlow.Infrastructure.Data;
 using CreditFlow.Infrastructure.Messaging.Services;
+using CreditFlow.Infrastructure.Respositories;
 using CreditFlow.Infrastructure.Respositories.Interfaces;
 
 namespace CreditFlow.Workers;
@@ -12,18 +14,15 @@ public class Worker : BackgroundService
     private readonly string _sqsUrl;
     private readonly CreditRequestValidator _creditRequestValidator;
     private readonly ICreditRequestRepository _creditRequestRepository;
+    private readonly CreditDBContext _dbContext;
 
-    public Worker(
-        SQSManager sqsManagerManager,
-        IConfiguration configuration,
-        CreditRequestValidator creditRequestValidator,
-        ICreditRequestRepository creditRequestRepository
-    )
+    public Worker(SQSManager sqsManagerManager, IConfiguration configuration, CreditRequestValidator creditRequestValidator)
     {
         _sqsManager = sqsManagerManager;
         _sqsUrl = configuration["SQS:CreditRequest"];
         _creditRequestValidator = creditRequestValidator;
-        _creditRequestRepository = creditRequestRepository;
+        _dbContext = new CreditDBContext();
+        _creditRequestRepository = new CreditRequestRepository(_dbContext);
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
