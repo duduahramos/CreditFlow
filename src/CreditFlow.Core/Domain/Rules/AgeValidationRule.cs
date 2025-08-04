@@ -12,9 +12,9 @@ public class AgeValidationRule : ICreditRule
     {
         if (request.Age < MinimumAge)
         {
-            return Task.FromResult(RuleValidationResult.Success(Name));
+            return Task.FromResult(RuleValidationResult.Fail(Name, $"Applicant must be at least {MinimumAge} years old."));
         }
 
-        return Task.FromResult(RuleValidationResult.Fail(Name, $"Applicant must be at least {MinimumAge} years old."));
+        return Task.FromResult(RuleValidationResult.Success(Name));
     }
 }
