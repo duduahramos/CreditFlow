@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\infra\CreditFlow.Infrastructure\CreditFlow.Infrastructure.csproj" />
     <ProjectReference Include="..\CreditFlow.Core\CreditFlow.Core.csproj" />
+    <ProjectReference Include="..\CreditFlow.Infrastructure\CreditFlow.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
