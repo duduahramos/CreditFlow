@@ -3,26 +3,25 @@ using CreditFlow.Core.Application;
 using CreditFlow.Core.Domain.Entities;
 using CreditFlow.Infrastructure.Data;
 using CreditFlow.Infrastructure.Messaging.Services;
-using CreditFlow.Infrastructure.Respositories;
 using CreditFlow.Infrastructure.Respositories.Interfaces;
-
-namespace CreditFlow.Worker;
 
 public class Worker : BackgroundService
 {
+    private readonly IServiceProvider _serviceProvider;
     private readonly SQSManager _sqsManager;
     private readonly string _sqsUrl;
     private readonly CreditRequestValidator _creditRequestValidator;
-    private readonly ICreditRequestRepository _creditRequestRepository;
-    private readonly CreditDBContext _dbContext;
 
-    public Worker(SQSManager sqsManagerManager, IConfiguration configuration, CreditRequestValidator creditRequestValidator)
+    public Worker(
+        IServiceProvider serviceProvider,
+        SQSManager sqsManager,
+        IConfiguration configuration,
+        CreditRequestValidator creditRequestValidator)
     {
-        _sqsManager = sqsManagerManager;
+        _serviceProvider = serviceProvider;
+        _sqsManager = sqsManager;
         _sqsUrl = configuration["SQS:CreditRequest"];
         _creditRequestValidator = creditRequestValidator;
-        _dbContext = new CreditDBContext();
-        _creditRequestRepository = new CreditRequestRepository(_dbContext);
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -31,24 +30,23 @@ public class Worker : BackgroundService
         {
             var messages = await _sqsManager.GetMessageAsync(_sqsUrl);
 
-            while (messages.Any())
+            foreach (var message in messages)
             {
-                foreach (var message in messages)
-                {
-                    CreditRequest creditRequest = JsonSerializer.Deserialize<CreditRequest>(message.Body);
+                using var scope = _serviceProvider.CreateScope();
+                var dbContext = scope.ServiceProvider.GetRequiredService<CreditDBContext>();
+                var repository = scope.ServiceProvider.GetRequiredService<ICreditRequestRepository>();
 
-                    var creditValidationResult = await _creditRequestValidator.ValidateAsync(creditRequest, stoppingToken);
-                    
-                    creditRequest.RequestStatus = creditValidationResult.RequestStatus;
-                    creditRequest.UpdatedAt = DateTime.UtcNow;
-                    creditRequest.EndedAt = DateTime.UtcNow;
+                var creditRequest = JsonSerializer.Deserialize<CreditRequest>(message.Body);
+                var validationResult = await _creditRequestValidator.ValidateAsync(creditRequest, stoppingToken);
 
-                    await _creditRequestRepository.UpdateASync(creditRequest);
+                creditRequest.RequestStatus = validationResult.RequestStatus;
+                creditRequest.UpdatedAt = DateTime.UtcNow;
+                creditRequest.EndedAt = DateTime.UtcNow;
 
-                    await _sqsManager.DeleteMessageAsync(_sqsUrl, message.ReceiptHandle);
-                }
+                await repository.UpdateASync(creditRequest);
+                await _sqsManager.DeleteMessageAsync(_sqsUrl, message.ReceiptHandle);
             }
-            
+
             await Task.Delay(1000, stoppingToken);
         }
     }
