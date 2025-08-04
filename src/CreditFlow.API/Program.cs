@@ -2,6 +2,7 @@ using CreditFlow.Core.Application;
 using CreditFlow.Core.Domain.Interfaces;
 using CreditFlow.Core.Domain.Rules;
 using CreditFlow.Infrastructure.Data;
+using CreditFlow.Infrastructure.Messaging.Services;
 using CreditFlow.Infrastructure.Respositories;
 using CreditFlow.Infrastructure.Respositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -23,13 +24,10 @@ builder.Services.AddScoped<ICreditRule, PaymentHistoryRule>();
 
 builder.Services.AddScoped<CreditRequestValidator>();
 
-builder.Services.AddDbContext<CreditDBContext>(
-    options => options.UseNpgsql(
-        builder.Configuration.GetConnectionString("Postgres")
-        )
-    );
+builder.Services.AddDbContext<CreditDBContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Postgres")));
 builder.Services.AddScoped<ICreditRequestRepository, CreditRequestRepository>();
 
+builder.Services.AddScoped<SQSManager>();
 
 var app = builder.Build();
 

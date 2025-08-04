@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreditFlow.API", "src\Credi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreditFlow.Core", "src\CreditFlow.Core\CreditFlow.Core.csproj", "{3204207E-1C08-4EC6-B270-A7FF4F44E7F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreditFlow.Workers", "src\CreditFlow.Workers\CreditFlow.Workers.csproj", "{B2B8C71F-8848-4C80-B2E3-FFB783CA4F78}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreditFlow.Worker", "src\CreditFlow.Worker\CreditFlow.Worker.csproj", "{B2B8C71F-8848-4C80-B2E3-FFB783CA4F78}"
 EndProject
 
 EndProject

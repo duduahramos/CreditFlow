@@ -1,9 +1,11 @@
+using System.Text.Json.Serialization;
 using CreditFlow.Core.Domain.Enums;
 
 namespace CreditFlow.API.Models;
 
 public class CreditRequestDTO
 {
+    [JsonIgnore]
     public Guid Id { get; init; }
     public string FirstName { get; init; }
     public string LastName { get; init; }
@@ -13,8 +15,11 @@ public class CreditRequestDTO
     public decimal RequestAmount { get;  init; }
     public int CreditScore { get;  init; }
     public bool HasDebtHistory { get; init; }
+    [JsonIgnore]
     public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
+    [JsonIgnore]
     public DateTime? UpdatedAt { get; init; }
+    [JsonIgnore]
     public DateTime? EndedAt { get; init; }
     public CreditRequestStatus RequestStatus { get; init; } = CreditRequestStatus.Pending;
 }

@@ -1,10 +1,12 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Amazon.SQS;
 using CreditFlow.API.Models;
 using CreditFlow.API.Utils.Mappers;
 using CreditFlow.Core.Application;
 using CreditFlow.Core.Domain.Results;
 using CreditFlow.Infrastructure.Data;
+using CreditFlow.Infrastructure.Messaging.Services;
 using CreditFlow.Infrastructure.Respositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,11 +18,19 @@ public class CreditRequestController : ControllerBase
 {
     private readonly CreditRequestValidator _validator;
     private readonly ICreditRequestRepository _creditRequestRepository;
+    private readonly SQSManager _sqsManager;
+    private readonly string _sqsUrl;
 
-    public CreditRequestController(CreditRequestValidator validator, ICreditRequestRepository creditRequestRepository)
+    public CreditRequestController(
+        CreditRequestValidator validator,
+        ICreditRequestRepository creditRequestRepository,
+        SQSManager sqsManager,
+        IConfiguration configuration)
     {
         _validator = validator;
         _creditRequestRepository = creditRequestRepository;
+        _sqsManager = sqsManager;
+        _sqsUrl = configuration["SQS:CreditRequest"];
     }
     
     [HttpPost]
@@ -31,6 +41,8 @@ public class CreditRequestController : ControllerBase
         var request = requestDto.ToEntity();
         
         await _creditRequestRepository.SaveAsync(request, cancellationToken);
+
+        await _sqsManager.SendMessageAsync(_sqsUrl, JsonSerializer.Serialize(request));
 
         return Ok(request.Id);
     }

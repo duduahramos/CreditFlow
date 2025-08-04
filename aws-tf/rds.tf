@@ -1,4 +1,5 @@
 resource "aws_db_instance" "postgresql" {
+  identifier = "creditflow"
   allocated_storage       = 5
   db_name                 = "CreditRequests"
   engine                  = "postgres"
