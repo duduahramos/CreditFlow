@@ -6,7 +6,7 @@ using CreditFlow.Infrastructure.Messaging.Services;
 using CreditFlow.Infrastructure.Respositories;
 using CreditFlow.Infrastructure.Respositories.Interfaces;
 
-namespace CreditFlow.Workers;
+namespace CreditFlow.Worker;
 
 public class Worker : BackgroundService
 {

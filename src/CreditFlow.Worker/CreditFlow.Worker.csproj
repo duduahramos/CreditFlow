@@ -4,8 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>dotnet-CreditFlow.Workers-0141b884-c925-4b76-8029-ce556e12f256</UserSecretsId>
-    <RootNamespace>CreditFlow.Workers</RootNamespace>
+    <UserSecretsId>dotnet-CreditFlow.Worker-0141b884-c925-4b76-8029-ce556e12f256</UserSecretsId>
+    <RootNamespace>CreditFlow.Worker</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

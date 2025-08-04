@@ -3,7 +3,7 @@ using CreditFlow.Infrastructure.Data;
 using CreditFlow.Infrastructure.Messaging.Services;
 using CreditFlow.Infrastructure.Respositories;
 using CreditFlow.Infrastructure.Respositories.Interfaces;
-using CreditFlow.Workers;
+using CreditFlow.Worker;
 using Microsoft.EntityFrameworkCore;
 
 var builder = Host.CreateApplicationBuilder(args);
