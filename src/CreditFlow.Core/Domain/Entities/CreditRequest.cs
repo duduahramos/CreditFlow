@@ -16,5 +16,5 @@ public class CreditRequest
     public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
     public DateTime? UpdatedAt { get; init; }
     public DateTime? EndedAt { get; init; }
-    public CreditRequestStatus RequestStatus { get; init; } = CreditRequestStatus.Pending;
+    public CreditRequestStatus RequestStatus { get; set; } = CreditRequestStatus.Pending;
 }

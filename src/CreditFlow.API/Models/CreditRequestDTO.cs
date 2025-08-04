@@ -21,5 +21,6 @@ public class CreditRequestDTO
     public DateTime? UpdatedAt { get; init; }
     [JsonIgnore]
     public DateTime? EndedAt { get; init; }
+    [JsonIgnore]
     public CreditRequestStatus RequestStatus { get; init; } = CreditRequestStatus.Pending;
 }
