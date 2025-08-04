@@ -37,9 +37,9 @@ public static class CreditRequestMapper
             RequestAmount = request.RequestAmount,
             CreditScore = request.CreditScore,
             HasDebtHistory = request.HasDebtHistory,
-            CreatedAt = request.CreatedAt,
-            UpdatedAt = request.UpdatedAt,
-            EndedAt = request.EndedAt,
+            CreatedAt = DateTime.UtcNow,
+            UpdatedAt = DateTime.UtcNow,
+            EndedAt = null,
             RequestStatus = request.RequestStatus
         };
     }

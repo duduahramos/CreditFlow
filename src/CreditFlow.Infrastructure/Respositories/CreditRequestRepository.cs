@@ -18,4 +18,10 @@ public class CreditRequestRepository : ICreditRequestRepository
         _dbContext.CreditRequests.Add(request);
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
+
+    public async Task UpdateASync(CreditRequest request, CancellationToken cancellationToken = default)
+    {
+        _dbContext.CreditRequests.Update(request);
+        await _dbContext.SaveChangesAsync(cancellationToken);
+    }
 }

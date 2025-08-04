@@ -26,4 +26,9 @@ public class SQSManager
 
         return responseReceiveMsg.Messages;
     }
+
+    public async Task DeleteMessageAsync(string qUrl, string receiptHandle)
+    {
+        await _sqs.DeleteMessageAsync(qUrl, receiptHandle);
+    }
 }

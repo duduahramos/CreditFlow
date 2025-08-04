@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\infra\CreditFlow.Infrastructure\CreditFlow.Infrastructure.csproj" />
     <ProjectReference Include="..\CreditFlow.Infrastructure\CreditFlow.Infrastructure.csproj" />
   </ItemGroup>
 </Project>

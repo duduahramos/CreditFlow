@@ -13,8 +13,8 @@ public class CreditRequest
     public decimal RequestAmount { get;  init; }
     public int CreditScore { get;  init; }
     public bool HasDebtHistory { get; init; }
-    public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
-    public DateTime? UpdatedAt { get; init; }
-    public DateTime? EndedAt { get; init; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime? UpdatedAt { get; set; }
+    public DateTime? EndedAt { get; set; }
     public CreditRequestStatus RequestStatus { get; set; } = CreditRequestStatus.Pending;
 }

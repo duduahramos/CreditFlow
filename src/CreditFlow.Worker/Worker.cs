@@ -1,5 +1,4 @@
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using CreditFlow.Core.Application;
 using CreditFlow.Core.Domain.Entities;
 using CreditFlow.Infrastructure.Messaging.Services;
@@ -9,22 +8,29 @@ namespace CreditFlow.Workers;
 
 public class Worker : BackgroundService
 {
-    private readonly SQSManager _sqs;
+    private readonly SQSManager _sqsManager;
     private readonly string _sqsUrl;
     private readonly CreditRequestValidator _creditRequestValidator;
+    private readonly ICreditRequestRepository _creditRequestRepository;
 
-    public Worker(SQSManager sqsManager, IConfiguration configuration, CreditRequestValidator creditRequestValidator)
+    public Worker(
+        SQSManager sqsManagerManager,
+        IConfiguration configuration,
+        CreditRequestValidator creditRequestValidator,
+        ICreditRequestRepository creditRequestRepository
+    )
     {
-        _sqs = sqsManager;
+        _sqsManager = sqsManagerManager;
         _sqsUrl = configuration["SQS:CreditRequest"];
         _creditRequestValidator = creditRequestValidator;
+        _creditRequestRepository = creditRequestRepository;
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         while (!stoppingToken.IsCancellationRequested)
         {
-            var messages = await _sqs.GetMessageAsync(_sqsUrl);
+            var messages = await _sqsManager.GetMessageAsync(_sqsUrl);
 
             while (messages.Any())
             {
@@ -34,7 +40,13 @@ public class Worker : BackgroundService
 
                     var creditValidationResult = await _creditRequestValidator.ValidateAsync(creditRequest, stoppingToken);
                     
-                    creditRequest.RequestStatus = creditValidationResult.RequestStatus; 
+                    creditRequest.RequestStatus = creditValidationResult.RequestStatus;
+                    creditRequest.UpdatedAt = DateTime.UtcNow;
+                    creditRequest.EndedAt = DateTime.UtcNow;
+
+                    await _creditRequestRepository.UpdateASync(creditRequest);
+
+                    await _sqsManager.DeleteMessageAsync(_sqsUrl, message.ReceiptHandle);
                 }
             }
             
