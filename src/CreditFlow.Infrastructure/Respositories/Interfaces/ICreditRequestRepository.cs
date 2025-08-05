@@ -6,4 +6,5 @@ public interface ICreditRequestRepository
 {
     Task SaveAsync(CreditRequest request, CancellationToken cancellationToken = default);
     Task UpdateASync(CreditRequest request, CancellationToken cancellationToken = default);
+    Task<CreditRequest> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
 }
