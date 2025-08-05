@@ -24,9 +24,10 @@ public static class AuthHelper
         return Convert.ToBase64String(hash);
     }
 
-    public static bool VerifyPassword(string password, string salt, string storedHash)
+    public static bool VerifyPassword(string requestPassword, string userSalt, string userHash)
     {
-        var hash = HashPassword(password, salt);
-        return hash == storedHash;
+        var hash = HashPassword(requestPassword, userSalt);
+
+        return hash == userHash;
     }
 }

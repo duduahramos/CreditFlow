@@ -1,49 +1,35 @@
 using CreditFlow.Core.Domain.Entities;
 using CreditFlow.API.DTOs;
+using CreditFlow.Core.Common.Helpers;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CreditFlow.API.Utils.Mappers;
 
-public static class CreditRequestMapper
+public static class UserMapper
 {
-    public static CreditRequestDTO ToDto(this CreditRequest request)
+    public static UserDTO ToDto(this User request)
     {
-        return new CreditRequestDTO()
+        return new UserDTO()
         {
             Id = request.Id,
-            UserId = request.UserId,
-            ClientId = request.ClientId,
             FirstName = request.FirstName,
             LastName = request.LastName,
-            Cpf = request.Cpf,
-            BirthDate = request.BirthDate,
-            MonthlyIncome = request.MonthlyIncome,
-            RequestAmount = request.RequestAmount,
-            CreditScore = request.CreditScore,
-            HasDebtHistory = request.HasDebtHistory,
-            CreatedAt = request.CreatedAt,
-            UpdatedAt = request.UpdatedAt,
-            EndedAt = request.EndedAt,
-            RequestStatus = request.RequestStatus.ToString()
+            Username = request.Username,
+            CreatedAt = request.CreatedAt
         };
     }
 
-    public static CreditRequest ToEntity(this CreditRequestDTO? request)
+    public static User ToEntity(this UserDTO? request)
     {
-        return new CreditRequest()
+        var userSalt = AuthHelper.GenerateSalt();
+        
+        return new User()
         {
-            UserId = request.UserId,
-            ClientId = request.ClientId,
             FirstName = request.FirstName,
             LastName = request.LastName,
-            Cpf = request.Cpf,
-            BirthDate = request.BirthDate,
-            MonthlyIncome = request.MonthlyIncome,
-            RequestAmount = request.RequestAmount,
-            CreditScore = request.CreditScore,
-            HasDebtHistory = request.HasDebtHistory,
-            CreatedAt = DateTime.UtcNow,
-            UpdatedAt = DateTime.UtcNow,
-            EndedAt = null
+            Username = request.Username,
+            PasswordSalt = userSalt,
+            PasswordHASH = AuthHelper.HashPassword(request.Password, userSalt)
         };
     }
 }

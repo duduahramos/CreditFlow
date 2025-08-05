@@ -3,6 +3,7 @@ using CreditFlow.API.DTOs;
 using CreditFlow.API.Utils.Mappers;
 using CreditFlow.Core.Application;
 using CreditFlow.Core.Common.Extensions;
+using CreditFlow.Core.Domain.Entities;
 using CreditFlow.Infrastructure.AWS;
 using CreditFlow.Infrastructure.Respositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -11,37 +12,25 @@ namespace CreditFlow.API.Controllers;
 
 [ApiController]
 [Route("api/v1/credit-request")]
-public class CreditRequestController : ControllerBase
+public class UserController : ControllerBase
 {
-    private readonly CreditRequestValidator _validator;
-    private readonly ICreditRequestRepository _creditRequestRepository;
-    private readonly SQSManager _sqsManager;
-    private readonly string? _sqsUrl;
+    private readonly IUserRepository _userRepository;
 
-    public CreditRequestController(
-        CreditRequestValidator validator,
-        ICreditRequestRepository creditRequestRepository,
-        SQSManager sqsManager,
-        IConfiguration configuration)
+    public UserController(IUserRepository userRepository)
     {
-        _validator = validator;
-        _creditRequestRepository = creditRequestRepository;
-        _sqsManager = sqsManager;
-        _sqsUrl = configuration["SQS:CreditRequest"];
+        _userRepository = userRepository;
     }
     
     [HttpPost]
-    public async Task<ActionResult> Post([FromBody] CreditRequestDTO? requestDto, CancellationToken cancellationToken)
+    public async Task<ActionResult> Post([FromBody] UserDTO? userDTO, CancellationToken cancellationToken)
     {
-        if (requestDto == null) return BadRequest("Request body is required.");
+        if (userDTO == null) return BadRequest("Request body is required.");
 
-        var request = requestDto.ToEntity();
+        var user = userDTO.ToEntity();
         
-        await _creditRequestRepository.SaveAsync(request, cancellationToken);
+        await _userRepository.SaveAsync(user, cancellationToken);
 
-        await _sqsManager.SendMessageAsync(_sqsUrl, JsonSerializer.Serialize(request));
-
-        return Ok(request.Id);
+        return Ok(user.Id);
     }
 
     [HttpGet("{id}")]
@@ -50,13 +39,13 @@ public class CreditRequestController : ControllerBase
         if (id.IsNullOrEmpty())
             return BadRequest("ID is required.");
 
-        var creditRequest = await _creditRequestRepository.GetByIdAsync(id);
+        var user = await _userRepository.GetByIdAsync(id);
         
-        if (creditRequest == null)
+        if (user == null)
             return NotFound("Credit request not exists.");
 
-        var creditRequestDTO = creditRequest.ToDto();
+        var userDTO = user.ToDto();
                 
-        return Ok(creditRequestDTO);
+        return Ok(userDTO);
     }
 }
