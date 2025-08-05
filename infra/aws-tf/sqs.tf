@@ -1,5 +1,5 @@
 resource "aws_sqs_queue" "credit_request_queue" {
-  name                      = "credit-request-queue"
+  name                      = "creditflow-request-queue"
   delay_seconds             = 90
   max_message_size          = 1024
   message_retention_seconds = 86400
@@ -11,7 +11,7 @@ resource "aws_sqs_queue" "credit_request_queue" {
 }
 
 resource "aws_sqs_queue" "credit_response_queue" {
-  name                      = "credit-response-queue"
+  name                      = "creditflow-response-queue"
   delay_seconds             = 90
   max_message_size          = 1024
   message_retention_seconds = 86400

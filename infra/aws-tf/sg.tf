@@ -1,5 +1,5 @@
 resource "aws_security_group" "dev_rds_sg" {
-  name        = "postgres-dev-sg"
+  name        = "creditflow-sg"
   description = "Allow acess to PostgreSQL DB"
   vpc_id      = aws_vpc.main.id
 

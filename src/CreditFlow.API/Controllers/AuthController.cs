@@ -10,9 +10,9 @@ namespace CreditFlow.API.Controllers
     public class AuthController : ControllerBase
     {
         [HttpPost("login")]
-        public async Task<ActionResult> Login([FromBody] LoginDTO loginDto, CancellationToken cancellationToken)
+        public async Task<ActionResult> Login([FromBody] LoginRequestDTO loginRequestDto, CancellationToken cancellationToken)
         {
-            if (!loginDto.Username.IsValidUsername() || !loginDto.Password.IsValidPassword())
+            if (!loginRequestDto.Username.IsValidUsername() || !loginRequestDto.Password.IsValidPassword())
             {
                 return Unauthorized("Username or password invalids.");
             }
