@@ -25,7 +25,7 @@ public class CpfBlacklistRule : ICreditRule
 
     public Task<RuleValidationResult> ValidateAsync(CreditRequest request, CancellationToken cancellationToken = default)
     {
-        if (Blacklisted.Contains(request.Cpf.ToString().OnlyDigits()))
+        if (Blacklisted.Contains(request.Cpf.OnlyDigits()))
         {
             return Task.FromResult(RuleValidationResult.Fail(Name, $"CPF {request.Cpf.ToString()} is blacklisted"));
         }

@@ -4,6 +4,7 @@ using Amazon.SQS;
 using CreditFlow.API.Models;
 using CreditFlow.API.Utils.Mappers;
 using CreditFlow.Core.Application;
+using CreditFlow.Core.Common.Extensions;
 using CreditFlow.Core.Domain.Results;
 using CreditFlow.Infrastructure.Data;
 using CreditFlow.Infrastructure.Messaging.Services;
@@ -45,5 +46,21 @@ public class CreditRequestController : ControllerBase
         await _sqsManager.SendMessageAsync(_sqsUrl, JsonSerializer.Serialize(request));
 
         return Ok(request.Id);
+    }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult> Get(Guid id, CancellationToken cancellationToken)
+    {
+        if (id.IsNullOrEmpty())
+            return BadRequest("ID is required.");
+
+        var creditRequest = await _creditRequestRepository.GetByIdAsync(id);
+        
+        if (creditRequest == null)
+            return NotFound("Credit request not exists.");
+
+        var creditRequestDTO = creditRequest.ToDto();
+                
+        return Ok(creditRequestDTO);
     }
 }

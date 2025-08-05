@@ -21,7 +21,7 @@ public static class CreditRequestMapper
             CreatedAt = request.CreatedAt,
             UpdatedAt = request.UpdatedAt,
             EndedAt = request.EndedAt,
-            RequestStatus = request.RequestStatus
+            RequestStatus = request.RequestStatus.ToString()
         };
     }
 
@@ -39,8 +39,7 @@ public static class CreditRequestMapper
             HasDebtHistory = request.HasDebtHistory,
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow,
-            EndedAt = null,
-            RequestStatus = request.RequestStatus
+            EndedAt = null
         };
     }
 }
