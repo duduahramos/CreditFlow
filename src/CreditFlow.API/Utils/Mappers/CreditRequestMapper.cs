@@ -1,5 +1,5 @@
 using CreditFlow.Core.Domain.Entities;
-using CreditFlow.API.Models;
+using CreditFlow.API.DTOs;
 
 namespace CreditFlow.API.Utils.Mappers;
 

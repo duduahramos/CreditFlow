@@ -1,6 +1,6 @@
 using CreditFlow.Core.Application;
+using CreditFlow.Infrastructure.AWS;
 using CreditFlow.Infrastructure.Data;
-using CreditFlow.Infrastructure.Messaging.Services;
 using CreditFlow.Infrastructure.Respositories;
 using CreditFlow.Infrastructure.Respositories.Interfaces;
 using Microsoft.EntityFrameworkCore;

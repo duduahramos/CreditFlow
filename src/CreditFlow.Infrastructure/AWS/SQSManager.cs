@@ -2,7 +2,7 @@ using System.Diagnostics;
 using Amazon.SQS;
 using Amazon.SQS.Model;
 
-namespace CreditFlow.Infrastructure.Messaging.Services;
+namespace CreditFlow.Infrastructure.AWS;
 
 public class SQSManager
 {

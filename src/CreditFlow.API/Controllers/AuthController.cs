@@ -1,4 +1,4 @@
-using CreditFlow.API.Models;
+using CreditFlow.API.DTOs;
 using CreditFlow.Core.Common.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

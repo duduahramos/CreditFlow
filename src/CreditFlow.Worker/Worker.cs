@@ -1,8 +1,8 @@
 using System.Text.Json;
 using CreditFlow.Core.Application;
 using CreditFlow.Core.Domain.Entities;
+using CreditFlow.Infrastructure.AWS;
 using CreditFlow.Infrastructure.Data;
-using CreditFlow.Infrastructure.Messaging.Services;
 using CreditFlow.Infrastructure.Respositories.Interfaces;
 
 public class Worker : BackgroundService

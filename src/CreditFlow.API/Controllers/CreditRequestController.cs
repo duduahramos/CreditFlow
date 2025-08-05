@@ -1,13 +1,9 @@
 using System.Text.Json;
-using System.Text.Json.Serialization;
-using Amazon.SQS;
-using CreditFlow.API.Models;
+using CreditFlow.API.DTOs;
 using CreditFlow.API.Utils.Mappers;
 using CreditFlow.Core.Application;
 using CreditFlow.Core.Common.Extensions;
-using CreditFlow.Core.Domain.Results;
-using CreditFlow.Infrastructure.Data;
-using CreditFlow.Infrastructure.Messaging.Services;
+using CreditFlow.Infrastructure.AWS;
 using CreditFlow.Infrastructure.Respositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 

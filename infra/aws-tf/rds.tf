@@ -1,11 +1,11 @@
 resource "aws_db_instance" "postgresql" {
   identifier              = "creditflow"
   allocated_storage       = 5
-  db_name                 = "creditflow-db"
+  db_name                 = "creditflow_db"
   engine                  = "postgres"
   engine_version          = "15"
   instance_class          = "db.t3.micro"
-  username                = "admin_user"
+  username                = var.db_username
   password                = var.db_password
   skip_final_snapshot     = true
   backup_retention_period = 0

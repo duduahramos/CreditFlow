@@ -6,6 +6,7 @@ namespace CreditFlow.Infrastructure.Data;
 public class CreditDBContext : DbContext
 {
     public DbSet<CreditRequest> CreditRequests => Set<CreditRequest>();
+    public DbSet<User> Users => Set<User>();
 
     public CreditDBContext() { }
     public CreditDBContext(DbContextOptions<CreditDBContext> options) : base(options) { }
@@ -14,7 +15,7 @@ public class CreditDBContext : DbContext
     {
         if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseNpgsql("Host=creditflow.cofwegkgsqsi.us-east-1.rds.amazonaws.com;Port=5432;Database=CreditRequests;Username=admin_user;Password=adminPWD"); // fallback
+            optionsBuilder.UseNpgsql("Host=creditflow.cofwegkgsqsi.us-east-1.rds.amazonaws.com;Port=5432;Database=creditflow_db;Username=adminUSER;Password=adminPASSWORD"); // fallback
         }
     }
 }

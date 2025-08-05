@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using CreditFlow.Core.Domain.Enums;
 
-namespace CreditFlow.API.Models;
+namespace CreditFlow.API.DTOs;
 
 public class CreditRequestDTO
 {

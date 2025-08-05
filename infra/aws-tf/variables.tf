@@ -21,3 +21,9 @@ variable "jwt_secret_key" {
   type        = string
   sensitive   = true
 }
+
+variable "pwd_salt" {
+  description = "PWD SALT"
+  type        = string
+  sensitive   = true
+}

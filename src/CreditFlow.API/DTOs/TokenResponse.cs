@@ -1,4 +1,4 @@
-namespace CreditFlow.API.Models;
+namespace CreditFlow.API.DTOs;
 
 public class TokenResponse
 {
