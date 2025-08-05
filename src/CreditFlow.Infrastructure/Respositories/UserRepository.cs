@@ -32,4 +32,11 @@ public class UserRepository : IUserRepository
 
         return result;
     }
+
+    public async Task<User> GetByUsernameAsync(string username, CancellationToken cancellationToken = default)
+    {
+        var result = await _dbContext.Users.FirstOrDefaultAsync(x => x.Username == username);
+
+        return result;
+    }
 }
