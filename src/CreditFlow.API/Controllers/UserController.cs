@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CreditFlow.API.Controllers;
 
 [ApiController]
-[Route("api/v1/credit-request")]
+[Route("api/v1/[controller]")]
 public class UserController : ControllerBase
 {
     private readonly IUserRepository _userRepository;

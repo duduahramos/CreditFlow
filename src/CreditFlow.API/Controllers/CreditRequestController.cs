@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CreditFlow.API.Controllers;
 
 [ApiController]
-[Route("api/v1/credit-request")]
+[Route("api/v1/[controller]")]
 public class CreditRequestController : ControllerBase
 {
     private readonly CreditRequestValidator _validator;

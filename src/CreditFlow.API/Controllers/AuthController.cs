@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CreditFlow.API.Controllers;
 
-[Route("api/v1/auth")]
+[Route("api/v1/[controller]")]
 [ApiController]
 public class AuthController : ControllerBase
 {

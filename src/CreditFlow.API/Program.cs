@@ -29,6 +29,7 @@ builder.Services.AddScoped<CreditRequestValidator>();
 
 builder.Services.AddDbContext<CreditDBContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Postgres")));
 builder.Services.AddScoped<ICreditRequestRepository, CreditRequestRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddScoped<SQSManager>();
 // builder.Services.AddScoped<SecretManager>();

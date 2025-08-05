@@ -4,7 +4,7 @@ public static class AuthExtensions
 {
     public static bool IsValidUsername(this string username)
     {
-        if (username.IsNullOrWhiteSpace() || username.IsNullOrEmpty() || username.Length < 8)
+        if (username.IsNullOrWhiteSpace() || username.IsNullOrEmpty())
         {
             return false;
         }
@@ -14,7 +14,7 @@ public static class AuthExtensions
 
     public static bool IsValidPassword(this string password)
     {
-        if (password.IsNullOrWhiteSpace() || password.IsNullOrEmpty() || password.Length < 8)
+        if (password.IsNullOrWhiteSpace() || password.IsNullOrEmpty())
         {
             return false;
         }
