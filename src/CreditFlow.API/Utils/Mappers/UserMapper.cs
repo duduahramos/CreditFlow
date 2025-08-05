@@ -29,7 +29,7 @@ public static class UserMapper
             LastName = request.LastName,
             Username = request.Username,
             PasswordSalt = userSalt,
-            PasswordHASH = AuthHelper.HashPassword(request.Password, userSalt)
+            PasswordHash = AuthHelper.HashPassword(request.Password, userSalt)
         };
     }
 }

@@ -27,7 +27,7 @@ public class AuthController : ControllerBase
 
         var user = await _userRepository.GetByUsernameAsync(loginRequestDto.Username, cancellationToken);
 
-        if (!AuthHelper.VerifyPassword(loginRequestDto.Password, user.PasswordSalt, user.PasswordHASH))
+        if (!AuthHelper.VerifyPassword(loginRequestDto.Password, user.PasswordSalt, user.PasswordHash))
         {
             return Unauthorized("Password invalid.");
         }

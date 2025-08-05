@@ -6,7 +6,7 @@ public class User
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Username { get; set; }
-    public string PasswordHASH { get; set; }
+    public string PasswordHash { get; set; }
     public string PasswordSalt { get; set; }
     public DateTime CreatedAt { get; init; } = DateTime.UtcNow; 
     

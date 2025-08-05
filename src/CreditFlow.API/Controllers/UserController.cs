@@ -42,7 +42,7 @@ public class UserController : ControllerBase
         var user = await _userRepository.GetByIdAsync(id);
         
         if (user == null)
-            return NotFound("Credit request not exists.");
+            return NotFound("User not exists.");
 
         var userDTO = user.ToDto();
                 
