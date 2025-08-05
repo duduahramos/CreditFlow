@@ -1,5 +1,5 @@
 resource "aws_db_instance" "postgresql" {
-  identifier = "creditflow"
+  identifier              = "creditflow"
   allocated_storage       = 5
   db_name                 = "CreditRequests"
   engine                  = "postgres"
@@ -12,7 +12,7 @@ resource "aws_db_instance" "postgresql" {
   publicly_accessible     = true
 
   vpc_security_group_ids = [aws_security_group.dev_rds_sg.id]
-  db_subnet_group_name = aws_db_subnet_group.main.name
+  db_subnet_group_name   = aws_db_subnet_group.main.name
 
   deletion_protection = false
 }
