@@ -13,7 +13,7 @@ public class SQSManager
         _sqs = new AmazonSQSClient();
     }
     
-    public async Task SendMessageAsync(string qUrl, string messageBody)
+    public async Task SendMessageAsync(string? qUrl, string messageBody)
     {
         SendMessageResponse responseSendMsg = await _sqs.SendMessageAsync(qUrl, messageBody);
         Console.WriteLine($"Message added to queue\n  {qUrl}");

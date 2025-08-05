@@ -10,10 +10,12 @@ public static class CreditRequestMapper
         return new CreditRequestDTO()
         {
             Id = request.Id,
+            UserId = request.UserId,
+            ClientId = request.ClientId,
             FirstName = request.FirstName,
             LastName = request.LastName,
             Cpf = request.Cpf,
-            Age = request.Age,
+            BirthDate = request.BirthDate,
             MonthlyIncome = request.MonthlyIncome,
             RequestAmount = request.RequestAmount,
             CreditScore = request.CreditScore,
@@ -29,10 +31,12 @@ public static class CreditRequestMapper
     {
         return new CreditRequest()
         {
+            UserId = request.UserId,
+            ClientId = request.ClientId,
             FirstName = request.FirstName,
             LastName = request.LastName,
             Cpf = request.Cpf,
-            Age = request.Age,
+            BirthDate = request.BirthDate,
             MonthlyIncome = request.MonthlyIncome,
             RequestAmount = request.RequestAmount,
             CreditScore = request.CreditScore,

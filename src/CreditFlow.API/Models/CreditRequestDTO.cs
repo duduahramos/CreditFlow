@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using CreditFlow.Core.Domain.Enums;
 
@@ -6,20 +7,33 @@ namespace CreditFlow.API.Models;
 public class CreditRequestDTO
 {
     [JsonIgnore]
-    public Guid Id { get; init; }
-    public string FirstName { get; init; }
-    public string LastName { get; init; }
-    public string Cpf { get;  init; }
-    public int Age { get;  init; }
-    public decimal MonthlyIncome { get;  init; }
-    public decimal RequestAmount { get;  init; }
-    public int CreditScore { get;  init; }
-    public bool HasDebtHistory { get; init; }
+    public Guid Id { get; set; }
+    [Required]
+    public Guid UserId { get; set; }
+    [Required]
+    public Guid ClientId { get; init; }
+    [Required]
+    public string FirstName { get; set; }
+    [Required]
+    public string LastName { get; set; }
+    [Required]
+    public string Cpf { get;  set; }
+    [Required]
+    public DateTime BirthDate { get; set; }
+    [Required]
+    public decimal MonthlyIncome { get;  set; }
+    [Required]
+    public decimal RequestAmount { get;  set; }
+    [Required]
+    public int CreditScore { get;  set; }
+    [Required]
+    public bool HasDebtHistory { get; set; }
     [JsonIgnore]
-    public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     [JsonIgnore]
-    public DateTime? UpdatedAt { get; init; }
+    public DateTime? UpdatedAt { get; set; }
     [JsonIgnore]
-    public DateTime? EndedAt { get; init; }
-    public string RequestStatus { get; init; }
+    public DateTime? EndedAt { get; set; }
+    [JsonIgnore]
+    public string RequestStatus { get; set; }
 }

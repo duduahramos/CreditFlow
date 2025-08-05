@@ -14,13 +14,13 @@ using Microsoft.AspNetCore.Mvc;
 namespace CreditFlow.API.Controllers;
 
 [ApiController]
-[Route("api/v1/[controller]")]
+[Route("api/v1/credit-request")]
 public class CreditRequestController : ControllerBase
 {
     private readonly CreditRequestValidator _validator;
     private readonly ICreditRequestRepository _creditRequestRepository;
     private readonly SQSManager _sqsManager;
-    private readonly string _sqsUrl;
+    private readonly string? _sqsUrl;
 
     public CreditRequestController(
         CreditRequestValidator validator,
