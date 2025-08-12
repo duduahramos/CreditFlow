@@ -6,10 +6,12 @@ using CreditFlow.Core.Common.Extensions;
 using CreditFlow.Core.Domain.Entities;
 using CreditFlow.Infrastructure.AWS;
 using CreditFlow.Infrastructure.Respositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CreditFlow.API.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/v1/[controller]")]
 public class UserController : ControllerBase
@@ -22,15 +24,15 @@ public class UserController : ControllerBase
     }
     
     [HttpPost]
-    public async Task<ActionResult> Post([FromBody] UserDTO? userDTO, CancellationToken cancellationToken)
+    public async Task<ActionResult<UserResponseDTO>> Post([FromBody] UserRequestDTO? userRequestDTO, CancellationToken cancellationToken)
     {
-        if (userDTO == null) return BadRequest("Request body is required.");
+        if (userRequestDTO == null) return BadRequest("Request body is required.");
 
-        var user = userDTO.ToEntity();
+        var user = userRequestDTO.ToEntity();
         
         await _userRepository.SaveAsync(user, cancellationToken);
 
-        return Ok(user.Id);
+        return Ok(user.ToResponseDto());
     }
 
     [HttpGet("{id}")]
@@ -44,7 +46,7 @@ public class UserController : ControllerBase
         if (user == null)
             return NotFound("User not exists.");
 
-        var userDTO = user.ToDto();
+        var userDTO = user.ToResponseDto();
                 
         return Ok(userDTO);
     }

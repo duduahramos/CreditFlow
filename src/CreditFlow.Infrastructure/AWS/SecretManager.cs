@@ -4,9 +4,9 @@ using Amazon.SecretsManager.Model;
 
 namespace CreditFlow.Infrastructure.AWS;
 
-public static class SecretManager
+public class SecretManager
 {
-    public static async Task<string> GetSecret(string secretName, string region = "us-east-1")
+    public async Task<string> GetSecret(string secretName, string region = "us-east-1")
     {
         IAmazonSecretsManager client = new AmazonSecretsManagerClient(RegionEndpoint.GetBySystemName(region));
 

@@ -7,6 +7,7 @@ public class CreditDBContext : DbContext
 {
     public DbSet<CreditRequest> CreditRequests => Set<CreditRequest>();
     public DbSet<User> Users => Set<User>();
+    public DbSet<Login> Logins => Set<Login>();
 
     public CreditDBContext() { }
     public CreditDBContext(DbContextOptions<CreditDBContext> options) : base(options) { }

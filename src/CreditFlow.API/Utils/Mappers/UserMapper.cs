@@ -7,9 +7,20 @@ namespace CreditFlow.API.Utils.Mappers;
 
 public static class UserMapper
 {
-    public static UserDTO ToDto(this User request)
+    public static UserResponseDTO ToResponseDto(this User response)
     {
-        return new UserDTO()
+        return new UserResponseDTO()
+        {
+            Id = response.Id,
+            FirstName = response.FirstName,
+            LastName = response.LastName,
+            Username = response.Username,
+            CreatedAt = response.CreatedAt
+        };
+    }
+    public static UserRequestDTO ToRequestDto(this User request)
+    {
+        return new UserRequestDTO()
         {
             Id = request.Id,
             FirstName = request.FirstName,
@@ -19,7 +30,7 @@ public static class UserMapper
         };
     }
 
-    public static User ToEntity(this UserDTO? request)
+    public static User ToEntity(this UserRequestDTO? request)
     {
         var userSalt = AuthHelper.GenerateSalt();
         

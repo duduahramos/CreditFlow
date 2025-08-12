@@ -1,6 +1,9 @@
 using CreditFlow.API.DTOs;
+using CreditFlow.API.Utils.Mappers;
+using CreditFlow.API.Utils.Services;
 using CreditFlow.Core.Common.Extensions;
 using CreditFlow.Core.Common.Helpers;
+using CreditFlow.Core.Domain.Entities;
 using CreditFlow.Infrastructure.Respositories.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,9 +15,13 @@ namespace CreditFlow.API.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IUserRepository _userRepository;
-    public AuthController(IUserRepository userRepository)
+    private readonly ILoginRepository _loginRepository;
+    private readonly TokenService _tokenService;
+    public AuthController(IUserRepository userRepository, ILoginRepository loginRepository, TokenService tokenService)
     {
         _userRepository = userRepository;
+        _loginRepository = loginRepository;
+        _tokenService = tokenService;
     }
     
     [HttpPost("login")]
@@ -27,11 +34,25 @@ public class AuthController : ControllerBase
 
         var user = await _userRepository.GetByUsernameAsync(loginRequestDto.Username, cancellationToken);
 
+        if (user == null) return Unauthorized("Username invalid.");
+
         if (!AuthHelper.VerifyPassword(loginRequestDto.Password, user.PasswordSalt, user.PasswordHash))
         {
             return Unauthorized("Password invalid.");
         }
 
-        return Ok();
+        var token = await _tokenService.GenerateToken(user);
+        var refeshToken = _tokenService.GenerateRefreshToken();
+
+        var login = new Login
+        {
+            Username = user.Username,
+            Token = token,
+            RefreshToken = refeshToken
+        };
+
+        await _loginRepository.UpdateASync(login, cancellationToken);
+        
+        return Ok(login.ToDTO());
     }
 }

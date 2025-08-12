@@ -5,10 +5,12 @@ using CreditFlow.Core.Application;
 using CreditFlow.Core.Common.Extensions;
 using CreditFlow.Infrastructure.AWS;
 using CreditFlow.Infrastructure.Respositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CreditFlow.API.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/v1/[controller]")]
 public class CreditRequestController : ControllerBase

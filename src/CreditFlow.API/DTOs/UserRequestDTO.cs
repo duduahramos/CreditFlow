@@ -1,16 +1,17 @@
 using CreditFlow.Core.Domain.Enums;
+using Newtonsoft.Json;
 
 namespace CreditFlow.Core.Domain.Entities;
 
-public class User
+public class UserRequestDTO
 {
-    public Guid Id { get; init; } = Guid.NewGuid();
+    [JsonIgnore]
+    public Guid Id { get; init; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Username { get; set; }
+    public string Password{ get; set; }
     public AdminLevel AdminLevel { get; set; }
-    public string PasswordHash { get; set; }
-    public string PasswordSalt { get; set; }
-    public DateTime CreatedAt { get; init; } = DateTime.UtcNow; 
+    public DateTime CreatedAt { get; init; } 
     
 }
